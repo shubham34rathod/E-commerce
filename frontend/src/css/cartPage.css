@@ -1,0 +1,120 @@
+.cart_container{
+    width: 80%;
+    /* height: 500px; */
+    margin: 20px auto 0px auto;
+    background-color: white;
+    padding: 20px;
+    font-family: 'Oswald', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Slab', serif;
+
+    & h4{
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+}
+.cart_box1{
+    width: 100%;
+    height: 130px;
+    /* border: 1px solid; */
+    display: flex;
+    margin: 10px 0px 10px 0px;
+}
+.cart_child1{
+    width: 50%;
+    height: 100%;
+    /* border: 1px solid; */
+    display: flex;
+}
+.cart_sub1{
+    width: 25%;
+    height: 90%;
+    margin: 5px 0px 0px 0px;
+    background-color: rgb(203, 203, 203);
+
+    & img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* border: 1px solid red; */
+    }
+}
+.cart_sub2{
+    width: 75%;
+    line-height: 10px;
+    padding: 20px;
+    /* background-color: aqua; */
+
+    .cart_item_name{
+        font-weight: 700;
+    }
+    .cart_item_color{
+        color: gray;
+    }
+}
+.Qty{
+    display: flex;
+    margin-top: 30px;
+
+    & p{
+        font-size: 14px;
+    }
+
+    & select{
+        margin-left: 10px;
+        position: relative;
+        bottom: 10px;
+        width: 50px;
+
+        & option{
+            text-align: center;
+        }
+    }
+}
+.cart_child2{
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+    text-align: right;
+    /* background-color: aqua; */
+
+    .cart_item_price{
+        font-weight: 600;
+    }
+
+    .remove_btn{
+        font-size: 14px;
+        margin-top: 8%;
+        color: blue;
+    }
+}
+.cart_box2{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px 0px 10px;
+
+    .total_txt{
+        font-weight: 600;
+    }
+    .total_price{
+        font-weight: 600;
+    }
+}
+.check_btn{
+    width: 100%;
+    height: 40px;
+    margin: 20px auto 10px auto;
+    border: none;
+    background-color: rgb(0, 47, 255);
+    color: white;
+    border-radius: 8px;
+}
+.check_btn:hover{
+    background-color: blue;
+}
+#continue_shop{
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+    color: blue;
+}
