@@ -1,0 +1,276 @@
+.checkout_container{
+    width: 68%;
+    /* height: 708px; */
+    /* background-color: red; */
+    /* border: 1px solid; */
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Oswald', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Slab', serif;
+}
+.checkout_box1{
+    width: 62%;
+    /* height: 100%; */
+    /* border: 1px solid; */
+    background-color: white;
+    margin-top: 30px;
+    padding: 20px 20px 50px 20px;
+
+    & h4{
+        font-weight: 600;
+    }
+
+    & p{
+        font-size: 13px;
+        color: rgb(128, 128, 128);
+    }
+
+    .check_sub1{
+        width: 100%;
+        display: flex;
+        padding: 0px 20px 0px 0px;
+        margin: 10px 0px 10px 0px;
+        /* justify-content: space-between; */
+        /* background-color: aqua; */
+
+        & label{
+            margin: 0px 0px 8px 0px;
+            font-size: 14px;
+        }
+        & input{
+            width: 120%;
+            border: 1px solid rgb(203, 203, 203);
+            border-radius: 5px;
+            height: 32px;
+            padding-left: 5px;
+        }
+
+        #Lname_box{
+            margin-left: 100px;
+        }
+    }
+
+    .email_box{
+        width: 100%;
+        margin: 10px 0px 10px 0px;
+
+        & input{
+            width: 80%;
+            border: 1px solid rgb(203, 203, 203);
+            padding-left: 5px;
+            border-radius: 5px;
+            height: 32px;
+        }
+
+        & label{
+            margin: 0px 0px 8px 0px;
+            font-size: 14px;
+        }
+    }
+
+    .check_sub2{
+        width: 100%;
+        display: flex;
+        margin: 10px 0px 10px 0px;
+
+        & input{
+            width: 90%;
+            border: 1px solid rgb(203, 203, 203);
+            padding-left: 5px;
+            border-radius: 5px;
+            height: 32px;
+        }
+
+        & label{
+            margin: 0px 0px 8px 0px;
+            font-size: 14px;
+        }
+    }
+
+    .country_box{
+        width: 100%;
+        margin: 10px 0px 10px 0px;
+
+        & label{
+            margin: 0px 0px 8px 0px;
+            font-size: 14px;
+        }
+
+        & select{
+            width: 80%;
+            border: 1px solid rgb(203, 203, 203);
+            padding-left: 5px;
+            border-radius: 5px;
+            height: 32px;
+        }
+    }
+
+    .address_box{
+        width: 100%;
+
+        & label{
+            margin: 0px 0px 8px 0px;
+            font-size: 14px;
+        }
+
+        & input{
+            width: 80%;
+            border: 1px solid rgb(203, 203, 203);
+            padding-left: 5px;
+            border-radius: 5px;
+            height: 32px;
+        }
+    }
+
+    & hr{
+        margin-top: 40px;
+        color: gray;
+    }
+}
+.check_sub3{
+    width: 100%;
+    text-align: right;
+
+    & span{
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    & button{
+        border: none;
+        background-color: rgb(0, 76, 255);
+        color: white;
+        border-radius: 5px;
+        height: 40px;
+        font-size: 14px;
+        padding: 10px;
+        margin: 0px 20px 0px 20px;
+    }
+}
+.checkout_box2{
+    width: 35%;
+    height: 100%;
+    /* border: 1px solid; */
+    background-color: white;
+    margin-top: 30px;
+    padding: 10px;
+    font-size: 14px;
+}
+.check_sub4{
+    font-size: 14px;
+
+    & h5{
+        font-weight: 600;
+    }
+
+    & p{
+        color: rgb(128, 128, 128);
+        font-size: 13px;
+    }
+}
+.check_sub5{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px 0px 0px;
+    /* border: 1px solid; */
+    padding: 10px;
+}
+.check_sub6{
+    display: flex;
+
+    & input{
+        position: absolute;
+    }
+    & div{
+        /* border: 1px solid; */
+        margin-left: 20px;
+        line-height: 10px;
+    }
+}
+.check_sub7{
+    text-align: right;
+    line-height: 10px;
+}
+.payment_box{
+    margin: 10px 0px 10px 0px;
+
+    & input{
+        margin-right: 10px;
+    }
+}
+.check_box1{
+    /* background-color: aqua; */
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+
+    .check_box2{
+        /* border: 1px solid; */
+        width: 70%;
+        /* background-color: aqua; */
+        display: flex;
+        /* line-height: 8px; */
+    }
+    .check_box3{
+        width: 60px;
+        height: 60px;
+        /* border: 1px solid rgb(214, 214, 214); */
+
+        & img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .check_box4{
+        line-height: 6px;
+        margin-left: 10px;
+
+        .check_item{
+            /* font-weight: 600; */
+        }
+        .check_clr{
+            color: rgb(156, 156, 156);
+        }
+    }
+
+    .check_box5{
+        display: flex;
+
+        & p{
+            margin-top: 5px;
+        }
+
+        & select{
+            width: 40px;
+            height: 25px;
+            margin-left: 10px;
+        }
+    }
+
+    .check_box6{
+        width: 30%;
+        text-align: right;
+        padding: 0px 20px 0px 0px;
+        line-height: 8px;
+
+        .check_item_price{
+            font-weight: 600;
+        }
+        .check_remove{
+            position: relative;
+            top: 30px;
+        }
+    }
+}
+.check_box7{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px 0px 20px;
+}
+.check_btn{
+    width: 100%;
+    background-color: rgb(0, 76, 255)
+}
