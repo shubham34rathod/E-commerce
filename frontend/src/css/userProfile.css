@@ -1,0 +1,131 @@
+#profile_title{
+    margin: 20px 0px 30px 80px;
+    text-decoration: underline;
+    font-weight: 600;
+    font-family: 'Oswald', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Slab', serif;
+    
+}
+.profile_container{
+    width: 90%;
+    margin: auto;
+    background-color: white;
+    padding: 30px;
+    font-family: 'Oswald', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Slab', serif;
+    /* filter: blur(3px); */
+}
+.profile_box1{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+
+    .profile_sub1{
+        width: 40%;
+        display: flex;
+    }
+    .profile_sub2{
+        width: 100px;
+        height: 100px;
+        /* background-color: aqua; */
+        border-radius: 8px;
+        box-shadow: 0px 0px 5px gray;
+
+        & img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px ;
+        }
+    }
+    .profile_sub3{
+        line-height: 20px;
+        margin-left: 20px;
+
+        .profile_item_name{
+            font-weight: 500;
+        }
+        .profile_brand_name{
+            color: gray;
+            font-size: 13px;
+        }
+        .profile_qty{
+            font-size: 13px;
+        }
+    }
+}
+.profile_no{
+    font-weight: 700;
+    text-decoration: underline;
+}
+.profile_status{
+    color: brown;
+    font-size: 14px;
+}
+.profile_box2{
+    width: 100%;
+    /* bprofile: 1px solid; */
+    line-height: 10px;
+    margin: 10px 0px 40px 0px;
+
+    & p{
+        
+        & span{
+            float: right;
+        }
+    }
+}
+#profile_address{
+    color: gray;
+}
+.profile_box3{
+    display: flex;
+    justify-content: space-between;
+    line-height: 15px;
+    border: 1px solid rgb(218, 218, 218);
+    padding: 10px;
+
+    .profile_sub4{
+        & p{
+            color: gray;
+        }
+    }
+    .profile_sub5{
+        color: gray;
+    }
+}
+
+.address_edit_box{
+    width: 50%;
+    padding: 30px;
+    /* height: 100px; */
+    margin: 10px auto 0px auto;
+    /* background-color: blueviolet; */
+    background-color:tomato;
+    border-radius: 8px;
+    position: absolute;
+    /* top: 140px; */
+    top: 18%;
+    left: 25%;
+    animation-name: popup;
+    animation-duration: 0.5s;
+    /* animation-direction: ; */
+}
+
+@keyframes popup {
+    0%{top: 0%;};
+    25%{top: 8%;};
+    0%{top: 16%;};
+    0%{top: 24%;};
+}
+.user_add_addressBtn{
+    border: none;
+    border-radius: 8px;
+    background-color: green;
+    color: white;
+    height: 35px;
+    margin-bottom: 20px;
+}
