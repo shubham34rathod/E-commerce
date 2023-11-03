@@ -1,0 +1,66 @@
+.admin_newProduct_box{
+    width: 60%;
+    /* height: 700px; */
+    background-color: white;
+    margin: 30px auto 30px auto;
+    padding: 40px;
+    border-radius: 8px;
+    font-family: 'Oswald', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Slab', serif;
+
+    & h5{
+        font-weight: 900;
+    }
+
+    & label{
+        font-size: 14px;
+        margin: 10px 0px 10px 0px;
+        /* font-weight: 300; */
+        color: gray;
+    }
+
+    & input{
+        width: 100%;
+        border: 1px solid rgb(195, 195, 195);
+        border-radius: 5px;
+        height: 30px;
+    }
+    & textarea{
+        width: 100%;
+        border: 1px solid rgb(195, 195, 195);
+        border-radius: 8px;
+        
+    }
+    & select{
+        width: 30%;
+        border: 1px solid rgb(195, 195, 195);
+        margin-bottom: 10px;
+        border-radius: 5px;
+        height: 30px;
+    }
+}
+.admin_inputGroup{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    & input{
+        width: 100%;
+    }
+}
+.admin_addBtn{
+    border: none;
+    background-color: rgb(0, 89, 255);
+    color: white;
+    border-radius: 5px;
+    /* height: 30px; */
+    margin: 50px 0px 20px 0px;
+    padding: 8px;
+    /* float: right; */
+}
+#admin_hint{
+    font-size: 13px;
+    color: rgb(179, 179, 179);
+    word-spacing: 3px;
+}

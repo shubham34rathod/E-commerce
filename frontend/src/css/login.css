@@ -23,6 +23,9 @@
             margin-left: 160px;
             color: blue;
         }
+        & span:hover{
+            cursor: pointer;
+        }
     }
 
     & input{
@@ -73,5 +76,8 @@
     & b{
         /* color: rgb(63, 124, 247); */
         color: blue;
+    }
+    & b:hover{
+        cursor: pointer;
     }
 }

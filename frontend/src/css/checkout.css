@@ -29,7 +29,8 @@
 
     .check_sub1{
         width: 100%;
-        display: flex;
+        /* border: 1px solid; */
+        /* display: flex; */
         padding: 0px 20px 0px 0px;
         margin: 10px 0px 10px 0px;
         /* justify-content: space-between; */
@@ -40,7 +41,7 @@
             font-size: 14px;
         }
         & input{
-            width: 120%;
+            width: 83%;
             border: 1px solid rgb(203, 203, 203);
             border-radius: 5px;
             height: 32px;

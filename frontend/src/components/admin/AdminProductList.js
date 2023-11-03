@@ -1,79 +1,28 @@
-import '../css/productList.css'
+import '../../css/adminProductLiit.css'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAllProducts, setBrands,setCategory } from './store/productSlice'
-import Navbar from './Navbar'
-import tmpImg from '../images/shopping_logo.jpg'
+import { setAllProducts, increment } from '.././store/productSlice'
+import Navbar from '.././Navbar'
+import tmpImg from '../../images/shopping_logo.jpg'
 import axios from 'axios'
-import { json, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-function ProductList() {
-    
-    let navigate=useNavigate()
-    let loginStatus=useSelector((state)=>state.products.login)
-    if(!loginStatus)
-    {
-        navigate('/login')
-    }
+function AdminProductList() {
+    let navigate = useNavigate()
     let dummyData = useSelector((state) => state.products.products)
-    let dummyBrand=useSelector((state)=>state.products.brands)
-    let dummyCategory=useSelector((state)=>state.products.category)
+    let dummyBrand = useSelector((state) => state.products.brands)
+    // let dummyCategory_0=useSelector((state)=>state.products.category)
     // console.log('d',dummyBrand)
     let dispatch = useDispatch()
 
-    let [filter,setFilter]=useState({})  
+    // let [dummyBrand, setDummyBrand] = useState([])
+    let [dummyCategory, setCategory] = useState([])
 
-    useEffect(() => {
-        async function getProductData() {
-            await fetch('https://dummyjson.com/products?limit=100')
-                // fetch('https://dummyjson.com/products/category/smartphones')
-                .then((res) => res.json())
-                .then((data) => {
-                    // console.log(JSON.stringify(data.products));
-                    // console.log([...new Set([...data.products.map((a) => a.category)]).keys()]);
-                    // dispatch(setAllProducts(data.products))
-                    dispatch(setBrands([...new Set([...data.products.map((a) => a.brand)]).keys()]))
-                    dispatch(setCategory([...new Set([...data.products.map((a) => a.category)]).keys()]))
-                })
-                .catch((error) => console.log(error))
-        }
-        getProductData()
-    }, [])
-
-    // ! variable to set query..........
-    
-    let [query,setQuery]=useState('')
 
     function handleFilter(e, filterType, filterValue) {
-        if(e.target.checked)
-        {
-            // console.log(e.target.checked,filterType,filterValue);
-            setQuery(query+`${filterType}=${filterValue}&`)
-        }
-        if(!e.target.checked)
-        {
-            // console.log(e.target.checked,filterType,filterValue);
-            // console.log(query.search(`${filterType}=${filterValue}&`));
-            setQuery(query.replace(`${filterType}=${filterValue}&`,''))
-        }
+        // console.log(filterType, filterValue)
+        console.log('bbx', e.target.checked)
     }
-
-    //! fetching filtered data.......................
-
-    useEffect(()=>{
-        async function getAllProducts()
-        {
-            await fetch(`http://localhost:8000/product/get_products?${query}`)
-            .then((res)=>res.json())
-            .then((data)=>{
-                dispatch(setAllProducts(data))
-                console.log('back',data);
-            })
-            console.log(query);
-
-        }
-        getAllProducts()
-    },[query])
 
 
     return <>
@@ -93,6 +42,9 @@ function ProductList() {
                 </div>
             </div>
             <hr />
+
+            <button className='add_new_Product' onClick={()=>navigate('/adminProductForm')}>Add New Product</button>
+
             <div className="product_box2">
                 <div className="product_box3">
                     <div className="accordion accordion-flush" id="accordionFlushExample">
@@ -104,12 +56,21 @@ function ProductList() {
                             </h2>
                             <div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                 <div className="accordion-body">
-                                    {dummyBrand.map((data) =>
-                                        <div>
-                                            <input type="checkbox" id='brand' onChange={(e) => handleFilter(e, 'brand', data)} />
-                                            <label htmlFor="brand">{data}</label>
+                                    {(!dummyBrand) ?
+                                        <div className="product_loader" style={{ marginLeft: '300px' }}>
+                                            <div className="spinner-border text-primary" role="status" style={{ width: '30px', height: '30px', }}>
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                            <span>Loading.....</span>
                                         </div>
-                                    )}
+                                        :
+                                        dummyBrand.map((data) =>
+                                            // console.log(data);
+                                            <div>
+                                                <input type="checkbox" id='brand' onChange={(e) => handleFilter(e, 'brand', data)} />
+                                                <label htmlFor="brand">{data}</label>
+                                            </div>
+                                        )}
                                 </div>
                             </div>
                         </div>
@@ -121,18 +82,27 @@ function ProductList() {
                             </h2>
                             <div id="flush-collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                 <div className="accordion-body">
-                                    {dummyCategory.map((data) =>
-                                        <div>
-                                            <input type="checkbox" id='category' onChange={(e) => handleFilter(e, 'category', data)} />
-                                            <label htmlFor="category">{data}</label>
+                                    {(dummyCategory) ?
+                                        <div className="product_loader" style={{ marginLeft: '300px' }}>
+                                            <div className="spinner-border text-primary" role="status" style={{ width: '30px', height: '30px', }}>
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                            <span>Loading.....</span>
                                         </div>
-                                    )}
+                                        :
+                                        dummyCategory.map((data) =>
+                                            <div>
+                                                <input type="checkbox" id='category' onChange={(e) => handleFilter(e, 'category', data)} />
+                                                <label htmlFor="category">{data}</label>
+                                            </div>
+                                        )}
 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div className="product_box4">
                     {(!dummyData) ?
                         <div className="product_loader" style={{ marginLeft: '300px' }}>
@@ -143,27 +113,28 @@ function ProductList() {
                         </div>
                         :
                         dummyData.map((data) => <>
-                            <div className="product_sub2" onClick={()=>navigate('/product_detail')}>
-                                <div className="item_img">
-                                    <img src={data.thumbnail} alt="" /> 
-                                </div>
-                                <div className="product_sub3">
-                                    <p id="product_item_name">{data.title}</p>
-                                    <div style={{ lineHeight: '5px', marginTop: '5px' }}>
-                                        <p id="product_price">${data.price}</p>
-                                        <p style={{ color: 'gray' }}><del>${data.price}</del></p>
+                                <div className="product_sub2" >
+                                    <div className="item_img" onClick={() => navigate('/product_detail')}>
+                                        <img src={data.thumbnail} alt="" />
                                     </div>
+                                    <div className="product_sub3">
+                                        <p id="product_item_name">{data.title}</p>
+                                        <div style={{ lineHeight: '5px', marginTop: '5px' }}>
+                                            <p id="product_price">${data.price}</p>
+                                            <p style={{ color: 'gray' }}><del>${data.price}</del></p>
+                                        </div>
+                                    </div>
+                                    <i className="bi bi-star-fill" ></i>
+                                    <p className="iem_clr" style={{ display: 'inline' }}>{data.rating}</p>
+                                    <button className='edit_product' onClick={() => navigate('/')}>Edit Product</button>                                                                                                                                                                                                                                                                               
                                 </div>
-                                <i className="bi bi-star-fill" ></i>
-                                <p className="iem_clr" style={{ display: 'inline' }}>{data.rating}</p>
-                            </div>
                         </>)
                     }
                 </div>
             </div>
             <nav aria-label="Page navigation example">
                 <ul className="pagination justify-content-end">
-                    <li className="page-item disabled">
+                    <li className="page-item disabled">     
                         <a className="page-link">Previous</a>
                     </li>
                     <li className="page-item"><a className="page-link" href="#">1</a></li>
@@ -178,4 +149,4 @@ function ProductList() {
     </>
 }
 
-export default ProductList
+export default AdminProductList
