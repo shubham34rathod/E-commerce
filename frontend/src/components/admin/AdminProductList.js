@@ -11,11 +11,9 @@ function AdminProductList() {
     let navigate = useNavigate()
     let dummyData = useSelector((state) => state.products.products)
     let dummyBrand = useSelector((state) => state.products.brands)
-    // let dummyCategory_0=useSelector((state)=>state.products.category)
-    // console.log('d',dummyBrand)
+    let dummyCategory_0=useSelector((state)=>state.products.category)
     let dispatch = useDispatch()
 
-    // let [dummyBrand, setDummyBrand] = useState([])
     let [dummyCategory, setCategory] = useState([])
 
 
@@ -68,7 +66,7 @@ function AdminProductList() {
                                             // console.log(data);
                                             <div>
                                                 <input type="checkbox" id='brand' onChange={(e) => handleFilter(e, 'brand', data)} />
-                                                <label htmlFor="brand">{data}</label>
+                                                <label htmlFor="brand">{data.value}</label>
                                             </div>
                                         )}
                                 </div>
@@ -82,7 +80,7 @@ function AdminProductList() {
                             </h2>
                             <div id="flush-collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                                 <div className="accordion-body">
-                                    {(dummyCategory) ?
+                                    {(!dummyCategory_0) ?
                                         <div className="product_loader" style={{ marginLeft: '300px' }}>
                                             <div className="spinner-border text-primary" role="status" style={{ width: '30px', height: '30px', }}>
                                                 <span className="visually-hidden">Loading...</span>
@@ -90,10 +88,10 @@ function AdminProductList() {
                                             <span>Loading.....</span>
                                         </div>
                                         :
-                                        dummyCategory.map((data) =>
+                                        dummyCategory_0.map((data) =>
                                             <div>
                                                 <input type="checkbox" id='category' onChange={(e) => handleFilter(e, 'category', data)} />
-                                                <label htmlFor="category">{data}</label>
+                                                <label htmlFor="category">{data.value}</label>
                                             </div>
                                         )}
 
@@ -113,8 +111,8 @@ function AdminProductList() {
                         </div>
                         :
                         dummyData.map((data) => <>
-                                <div className="product_sub2" >
-                                    <div className="item_img" onClick={() => navigate('/product_detail')}>
+                                <div className="admin_product_sub2" >
+                                    <div className="item_img" onClick={() => navigate('/product_detail',{ state: data._id })}>
                                         <img src={data.thumbnail} alt="" />
                                     </div>
                                     <div className="product_sub3">
@@ -126,7 +124,7 @@ function AdminProductList() {
                                     </div>
                                     <i className="bi bi-star-fill" ></i>
                                     <p className="iem_clr" style={{ display: 'inline' }}>{data.rating}</p>
-                                    <button className='edit_product' onClick={() => navigate('/')}>Edit Product</button>                                                                                                                                                                                                                                                                               
+                                    <button className='edit_product' onClick={() => navigate('/adminProductForm',{state:data})}>Edit Product</button>                                                                                                                                                                                                                                                                               
                                 </div>
                         </>)
                     }

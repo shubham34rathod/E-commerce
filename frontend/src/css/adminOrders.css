@@ -1,5 +1,5 @@
 .admin_container{
-    width: 80%;
+    width: 100%;
     /* height: 600px; */
     background-color: white;
     border-radius: 5px;
@@ -7,6 +7,7 @@
     font-family: 'Oswald', sans-serif;
     font-family: 'Roboto', sans-serif;
     font-family: 'Roboto Slab', serif;
+    border-radius: 8px;
 
     & th, & td{
         /* width: 20%; */
@@ -17,6 +18,7 @@
         background-color: rgb(172, 163, 163);
         height: 40px;
         font-size: 14px;
+        border: 1px solid white;
     }
     & td{
         font-size: 14px;

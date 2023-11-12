@@ -7,7 +7,7 @@ import ProductList from './components/ProductList';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import CartPage from './components/CartPage';
-import Checkout from './components/Ckeckout';
+import Checkout from './components/Checkout';
 import ProductDetail from './components/ProductDetail';
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Page404 from './components/Page404';
@@ -17,7 +17,8 @@ import UserProfile from './components/user/UserProfile';
 import ForgotPassword from './components/ForgotPassword';
 import AdminProductList from './components/admin/AdminProductList';
 import AdminProductFormPage from './components/admin/AdminProductFormPage';
-import AdminOrders from './components/admin/AdminOrsers';
+import AdminOrders from './components/admin/AdminOrders';
+import ResetPassword from './components/ResetPassword';
 
 function App() {
   return <>
@@ -41,6 +42,7 @@ function App() {
             <Route path='my_order' element={<MyOrder></MyOrder>}></Route>
             <Route path='/user_profile' element={<UserProfile></UserProfile>}></Route>
             <Route path='/forgot_password' element={<ForgotPassword></ForgotPassword>}></Route>
+            <Route path='/reset_password' element={<ResetPassword></ResetPassword>}></Route>
             <Route path='/adminProductList' element={<AdminProductList></AdminProductList>}></Route>
             <Route path='/adminProductForm' element={<AdminProductFormPage></AdminProductFormPage>}></Route>
             <Route path='/adminOrders' element={<AdminOrders></AdminOrders>}></Route>

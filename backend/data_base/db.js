@@ -12,8 +12,10 @@ let userSchema=new mongoose.Schema({
     password:{type:String,required:true},
     role:{type:String,required:true,default:'user'},
     address:{type:[mongoose.Schema.Types.Mixed]},
-    name:{type:String},
-    order:{type:[mongoose.Schema.Types.Mixed]}
+    name:{type:String,required:true},
+    order:{type:[mongoose.Schema.Types.Mixed]},
+    profileImg:{type:String,default:null},
+    token:{type:String}
 })
 
 let userModel=mongoose.model('user',userSchema)
@@ -40,13 +42,19 @@ let productModel=mongoose.model('product',productSchema )
 //cart schema.............................................
 
 let cartSchema=new mongoose.Schema({
-    quantity:{type:Number,required:true},
-    productId:{type:mongoose.Schema.Types.ObjectId,ref:'productModel',required:true},
-    // productId:{type:String,required:true},
+    quantity:{type:Number,required:true,default:1},
+    // productId:{type:mongoose.Schema.Types.ObjectId,ref:'productModel',required:true},/
+    productId:{type:String,required:true},
     userId:{type:String,required:true},
+    title:{type:String},
+    description:{type:String},
+    price:{type:Number},
+    stock:{type:Number},
+    thumbnail:{type:String}
+
 },{timestamps:true})
 
-let cartModel=mongoose.model('cart',productSchema )
+let cartModel=mongoose.model('cart',cartSchema )
 
 
 
@@ -70,4 +78,21 @@ let brandSchema=new mongoose.Schema({
 let brandModel=mongoose.model('brand',brandSchema)
 
 
-module.exports={productModel,categoryModel,brandModel,userModel,cartModel}
+//order schema.............................................
+
+let orderSchema=new mongoose.Schema({
+    items:{type:[mongoose.Schema.Types.Mixed],required:true},
+    totalAmount:{type:Number},
+    totalItems:{type:Number},
+    user:{type:String,required:true},
+    paymentMethod:{type:String,required:true},
+    paymentStatus: { type: String, default: 'pending' },
+    status:{type:String,default:'pending'},
+    selectedAddress:{type:mongoose.Schema.Types.Mixed,required:true}
+    // selectedAddress:{type:Object,required:true}
+})
+
+let orderModel=mongoose.model('order',orderSchema)
+
+
+module.exports={productModel,categoryModel,brandModel,userModel,cartModel,orderModel}
