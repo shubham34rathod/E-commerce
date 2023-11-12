@@ -1,27 +1,32 @@
 import '../css/productList.css'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setAllProducts, setBrands,setCategory } from './store/productSlice'
+import { setAllProducts, setBrands, setCategory } from './store/productSlice'
 import Navbar from './Navbar'
 import tmpImg from '../images/shopping_logo.jpg'
 import axios from 'axios'
 import { json, useNavigate } from 'react-router-dom'
+import ReactPaginate from 'react-paginate';
 
 function ProductList() {
-    
-    let navigate=useNavigate()
-    let loginStatus=useSelector((state)=>state.products.login)
-    if(!loginStatus)
-    {
-        navigate('/login')
-    }
+
+    let navigate = useNavigate()
+    let loginStatus = useSelector((state) => state.products.login)
+
+    // if(!loginStatus)
+    // {
+    //     navigate('/login')
+    // }
+
     let dummyData = useSelector((state) => state.products.products)
-    let dummyBrand=useSelector((state)=>state.products.brands)
-    let dummyCategory=useSelector((state)=>state.products.category)
+    let dummyBrand = useSelector((state) => state.products.brands)
+    let dummyCategory = useSelector((state) => state.products.category)
     // console.log('d',dummyBrand)
     let dispatch = useDispatch()
 
-    let [filter,setFilter]=useState({})  
+    let [filter, setFilter] = useState({})
+    let [pagination, setPegination] = useState(1)
+    let [totalPages, setTotalPages] = useState()
 
     useEffect(() => {
         async function getProductData() {
@@ -32,8 +37,8 @@ function ProductList() {
                     // console.log(JSON.stringify(data.products));
                     // console.log([...new Set([...data.products.map((a) => a.category)]).keys()]);
                     // dispatch(setAllProducts(data.products))
-                    dispatch(setBrands([...new Set([...data.products.map((a) => a.brand)]).keys()]))
-                    dispatch(setCategory([...new Set([...data.products.map((a) => a.category)]).keys()]))
+                    // dispatch(setBrands([...new Set([...data.products.map((a) => a.brand)]).keys()]))
+                    // dispatch(setCategory([...new Set([...data.products.map((a) => a.category)]).keys()]))
                 })
                 .catch((error) => console.log(error))
         }
@@ -41,39 +46,62 @@ function ProductList() {
     }, [])
 
     // ! variable to set query..........
-    
-    let [query,setQuery]=useState('')
+
+    let [query, setQuery] = useState('')
 
     function handleFilter(e, filterType, filterValue) {
-        if(e.target.checked)
-        {
-            // console.log(e.target.checked,filterType,filterValue);
-            setQuery(query+`${filterType}=${filterValue}&`)
+        if (e.target.checked) {
+            // console.log(e.target.checked,filterType,filterValue.value);
+            setQuery(query + `${filterType}=${filterValue.value}&`)
         }
-        if(!e.target.checked)
-        {
+        if (!e.target.checked) {
             // console.log(e.target.checked,filterType,filterValue);
             // console.log(query.search(`${filterType}=${filterValue}&`));
-            setQuery(query.replace(`${filterType}=${filterValue}&`,''))
+            setQuery(query.replace(`${filterType}=${filterValue.value}&`, ''))
         }
     }
 
     //! fetching filtered data.......................
 
-    useEffect(()=>{
-        async function getAllProducts()
-        {
-            await fetch(`http://localhost:8000/product/get_products?${query}`)
-            .then((res)=>res.json())
-            .then((data)=>{
-                dispatch(setAllProducts(data))
-                console.log('back',data);
-            })
-            console.log(query);
+    useEffect(() => {
+        // console.log('page',pagination);
+        async function getAllProducts() {
+            await fetch(`http://localhost:8000/product/get_products?_page=${pagination}&${query}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    dispatch(setAllProducts(data[0]))
+                    // console.log('back',data);
+                    setTotalPages(data[1])
+                })
+            // console.log(query);
 
         }
         getAllProducts()
-    },[query])
+    }, [query,pagination,dispatch])
+
+
+    //! fetching brand and category................................
+
+    useEffect(()=>{
+        async function fetchingData()
+        {
+            await axios.get(`http://localhost:8000/brand`)
+            .then((res)=>{
+                // console.log(res.data);
+                dispatch(setBrands(res.data))
+            })
+            .catch((error)=>console.log(error))
+            
+            
+            await axios.get(`http://localhost:8000/category`)
+            .then((res)=>{
+                // console.log(res.data);
+                dispatch(setCategory(res.data))
+            })
+            .catch((error)=>console.log(error))
+        }
+        fetchingData()
+    },[])
 
 
     return <>
@@ -89,7 +117,7 @@ function ProductList() {
                         <option value="price">Price: Low to High</option>
                         <option value="price">Price: High to Low</option>
                     </select>
-                    <i className="bi bi-grid-fill"></i>
+                    <i className="bi bi-grid-fill" style={{ fontSize: '20px' }}></i>
                 </div>
             </div>
             <hr />
@@ -107,7 +135,7 @@ function ProductList() {
                                     {dummyBrand.map((data) =>
                                         <div>
                                             <input type="checkbox" id='brand' onChange={(e) => handleFilter(e, 'brand', data)} />
-                                            <label htmlFor="brand">{data}</label>
+                                            <label htmlFor="brand">{data.value}</label>
                                         </div>
                                     )}
                                 </div>
@@ -124,7 +152,7 @@ function ProductList() {
                                     {dummyCategory.map((data) =>
                                         <div>
                                             <input type="checkbox" id='category' onChange={(e) => handleFilter(e, 'category', data)} />
-                                            <label htmlFor="category">{data}</label>
+                                            <label htmlFor="category">{data.value}</label>
                                         </div>
                                     )}
 
@@ -143,9 +171,9 @@ function ProductList() {
                         </div>
                         :
                         dummyData.map((data) => <>
-                            <div className="product_sub2" onClick={()=>navigate('/product_detail')}>
+                            <div className="product_sub2" onClick={() => navigate('/product_detail', { state: data._id })}>
                                 <div className="item_img">
-                                    <img src={data.thumbnail} alt="" /> 
+                                    <img src={data.thumbnail} alt="" />
                                 </div>
                                 <div className="product_sub3">
                                     <p id="product_item_name">{data.title}</p>
@@ -161,19 +189,45 @@ function ProductList() {
                     }
                 </div>
             </div>
-            <nav aria-label="Page navigation example">
-                <ul className="pagination justify-content-end">
-                    <li className="page-item disabled">
+            {/* <nav aria-label="Page navigation example">               
+                 <ul className="pagination justify-content-end" onChange={(e)=>console.log(e.target.value)}>
+                    <li  className="page-item disabled">
                         <a className="page-link">Previous</a>
                     </li>
-                    <li className="page-item"><a className="page-link" href="#">1</a></li>
-                    <li className="page-item"><a className="page-link" href="#">2</a></li>
-                    <li className="page-item"><a className="page-link" href="#">3</a></li>
-                    <li className="page-item">
+                    <li  className="page-item"><a className="page-link" href="#">1</a></li>
+                    <li  className="page-item"><a className="page-link" href="#">2</a></li>
+                    <li  className="page-item"><a className="page-link" href="#">3</a></li>
+                    <li  className="page-item">
                         <a className="page-link" href="#">Next</a>
                     </li>
                 </ul>
-            </nav>
+            </nav> */}
+            <div className='product_box5'>
+               <div className="product_box6">
+               <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    onPageChange={(e)=>{
+                        setPegination((e.selected)+1)
+                        // console.log(e.selected+1);
+                    }}
+                    pageRangeDisplayed={5}
+                    pageCount={Math.ceil(totalPages / 16)}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
+                    marginPagesDisplayed={2}
+                    // onPageChange={this.handlePageClick}
+                    containerClassName="pagination justify-content-center"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    activeClassName="active"
+                />
+               </div>
+            </div>
         </div>
     </>
 }

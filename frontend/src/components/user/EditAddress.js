@@ -1,13 +1,52 @@
+import { useState } from 'react';
 import '../../css/editAddress.css'
+import { useSelector } from 'react-redux';
 
 function EditAddress(prop) {
 
-    function handleUserData() {
+    let userInfo=useSelector((state)=>state.products.userData)
 
+    let [userAddress,setAddress]=useState({
+        name:'',
+        email:'',
+        phone:'',
+        country:'',
+        address:'',
+        city:'',
+        state:'',
+        pinCode:''
+    })
+
+    function handleUserData(e,prop) {
+        setAddress((data)=>({
+            ...data,
+            [prop]:e.target.value
+        }))
+    }
+
+    async function handleSubmit(e)
+    {
+        e.preventDefault()
+        console.log(userAddress);
+        async function getAllProducts()
+        {
+            await fetch(`http://localhost:8000/user/newAddress/${userInfo._id}`,{
+                method:'post',
+                headers:{
+                    'content-type':'application/json'
+                },
+                body:JSON.stringify(userAddress)
+            })
+            .then((res)=>res.json())
+            .then((data)=>{
+                // console.log('back',data);
+            })
+        }
+        getAllProducts()
     }
 
     return <>
-        <form className='edit_form' onSubmit={(e) => { e.preventDefault(); console.log() }}>
+        <form className='edit_form' onSubmit={(e) => { handleSubmit(e) }}>
             <div className="edit_box_1">
                 <div className='edit_sub_1'>
                     <label htmlFor="Fname">Full Name</label><br />
@@ -53,7 +92,7 @@ function EditAddress(prop) {
             <hr />
             <div className="check_sub3">
                 <span onClick={()=>prop.popFunction(false)}>close</span>
-                <button>Update</button>
+                <button>Add</button>
             </div>
         </form>
     </>

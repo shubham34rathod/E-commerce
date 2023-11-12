@@ -100,3 +100,12 @@
     }
     
 }
+
+.nav_loginBtn{
+    width: 8%;
+    height: 40px;
+    border-radius: 8px;
+}
+.nav_loginBtn:hover{
+    background-color: white;
+}

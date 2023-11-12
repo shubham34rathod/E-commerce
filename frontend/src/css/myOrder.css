@@ -9,12 +9,13 @@
 }
 .order_container{
     width: 90%;
-    margin: auto;
+    margin: 0px auto 30px auto;
     background-color: white;
     padding: 30px;
     font-family: 'Oswald', sans-serif;
     font-family: 'Roboto', sans-serif;
     font-family: 'Roboto Slab', serif;
+    border-radius: 8px;
 }
 .order_box1{
     width: 100%;
