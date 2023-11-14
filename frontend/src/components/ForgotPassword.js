@@ -20,7 +20,7 @@ function ForgotPassword() {
     {
         e.preventDefault()
 
-        await axios.post(`http://localhost:8000/reset-password/check_user`,{email:email})
+        await axios.post(`https://e-commerce-backend-tdjw.onrender.com/reset-password/check_user`,{email:email})
         .then(async(res)=>{
             console.log(res.data);
             if(res.data==='user exist')
