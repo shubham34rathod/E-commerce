@@ -4,7 +4,7 @@ import tmpImg from '../images/shopping_logo.jpg'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { setCartCount } from './store/productSlice'
+import { setCartCount,setCurrentOrder } from './store/productSlice'
 import gif from '../video/Shopping Loader - GIF Animation.gif'
 
 function CartPage() {
@@ -25,6 +25,7 @@ function CartPage() {
                     // console.log('cart', res.length);
                     setCartData(res)
                     dispatch(setCartCount(res.length))
+                    dispatch(setCurrentOrder(res))
                 })
                 .catch((error) => console.log(error))
         }

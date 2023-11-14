@@ -66,7 +66,7 @@ router.post('/update/:id',async(req,res)=>{
     try 
     {
         let id=req.params.id
-        console.log(req.body,id);
+        // console.log(req.body,id);
         let order=await orderModel.findByIdAndUpdate(id,req.body)
         let newOrder=await order.save()
         res.json(newOrder)

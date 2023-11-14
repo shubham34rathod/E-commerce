@@ -35,7 +35,7 @@ function Navbar() {
         <div className="navbar">
             <div className="nav_box1">
                 <img src={shop_logo} alt="" onClick={() => navigate('/')} />
-                {(userRole.role === 'user') ?
+                {userInfo && (userRole.role === 'user') ?
                     <>
                         <p>Dashboard</p>
                         <p>Team</p>
