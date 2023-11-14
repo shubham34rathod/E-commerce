@@ -13,7 +13,7 @@ function AdminOrders() {
 
     useEffect(() => {
         async function orderData() {
-            await axios.get(`http://localhost:8000/order/fetch-all`)
+            await axios.get(`https://e-commerce-backend-tdjw.onrender.com/order/fetch-all`)
                 .then((res) => {
                     // console.log(res.data);
                     setOrderData(res.data)
@@ -28,7 +28,7 @@ function AdminOrders() {
     async function handleStatus(status,itemId)
     {
         console.log(status,itemId);
-        await axios.post(`http://localhost:8000/order/update/${itemId}`,{status:status})
+        await axios.post(`https://e-commerce-backend-tdjw.onrender.com/order/update/${itemId}`,{status:status})
         .then((res)=>{
             console.log(res.data);
             setStatusVar(false)
