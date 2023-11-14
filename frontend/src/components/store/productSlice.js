@@ -9,7 +9,8 @@ let initialValue={
     resetUserId:'',
     totalCartItems:0,
     brands:[],
-    category:[]
+    category:[],
+    currentOrder:null
 }
 
 export const productSlice=createSlice({
@@ -45,6 +46,9 @@ export const productSlice=createSlice({
         setResetPassEmail:(state,action)=>{
             state.resetUserId=action.payload
         },
+        setCurrentOrder:(state,action)=>{
+            state.currentOrder=action.payload
+        },
         handleFilterProduct:(state)=>{
             async function filter_product()
             {
@@ -54,5 +58,5 @@ export const productSlice=createSlice({
     }
 })
 
-export const {setAllProducts,setCategory,setBrands,setUser,logOutUser,setCartCount,setResetPassEmail}=productSlice.actions;
+export const {setAllProducts,setCategory,setBrands,setUser,logOutUser,setCartCount,setResetPassEmail,setCurrentOrder}=productSlice.actions;
 export default productSlice.reducer

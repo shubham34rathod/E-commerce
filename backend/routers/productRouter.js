@@ -74,6 +74,7 @@ router.get('/fetchProduct_byID/:id',async(req,res)=>{
     {
         let id=req.params.id
         let product=await productModel.findById(id)
+        // console.log(product);
         res.json(product)
     } 
     catch (error) 

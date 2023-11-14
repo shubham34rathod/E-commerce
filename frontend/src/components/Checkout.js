@@ -2,12 +2,14 @@ import '../css/checkout.css'
 import Navbar from './Navbar'
 import tmpImg from '../images/shopping_logo.jpg'
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { setCurrentOrder } from './store/productSlice'
 
 function Checkout() {
 
     let navigate = useNavigate()
+    let dispatch=useDispatch()
     let userInfo = useSelector((state) => state.products.userData)
 
     let [userData, setUserData] = useState({
@@ -66,18 +68,18 @@ function Checkout() {
                 .then((res) => {
                     // console.log('cart', res);
                     setCartData(res)
-                    setOrderData((data)=>({
+                    setOrderData((data) => ({
                         ...data,
-                        items:res,
-                        totalItems:res.length,
-                        user:userInfo._id,
-                        totalAmount:addAmount
+                        items: res,
+                        totalItems: res.length,
+                        user: userInfo._id,
+                        totalAmount: addAmount
                     }))
                 })
                 .catch((error) => console.log(error))
         }
         fetchCart()
-    }, [cartData,orderData,addAmount])
+    }, [cartData, orderData, addAmount])
 
     for (let x = 0; x < cartData.length; x++) {
         addAmount += ((cartData[x].quantity) * (cartData[x].price))
@@ -152,26 +154,34 @@ function Checkout() {
 
     //! handle submit order................
 
-    async function handleSubmitOrder()
-    {
+    async function handleSubmitOrder() {
         // navigate('/order_success')
         // console.log(orderData)
-        await fetch(`http://localhost:8000/order/new_order`,{
-            method:'post',
-            headers:{
-                'content-type':'application/json'
-            },
-            body:JSON.stringify(orderData)
-        })
-        .then((res)=>res.json())
-        .then((data)=>{
-            console.log(data)
-            if(data[0]==='order created')
-            {
-                navigate('/order_success',{state:data[1]})
-            }
-        })
-        .catch((error)=>console.log(error))
+
+        if (orderData.paymentMethod === 'cash') {
+            await fetch(`http://localhost:8000/order/new_order`, {
+                method: 'post',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data)
+                    if (data[0] === 'order created') {
+                        // navigate('/order_success', { state: data[1] })
+                        dispatch(setCurrentOrder(data[1]))
+                        navigate(`/order_success/${data[1]}`)
+                    }
+                })
+                .catch((error) => console.log(error))
+        }
+        if (orderData.paymentMethod === 'card') {
+            navigate(`/strip_payment`,{state:orderData})
+        }
+
+
     }
 
 
@@ -242,10 +252,12 @@ function Checkout() {
                             <p>choose from existing address</p>
                             <div className="check_sub5">
                                 <div className="check_sub6">
-                                    <input type="radio" name='address' onClick={() => {setOrderData((a) => ({
-                                        ...a,
-                                        selectedAddress: data
-                                    }))}
+                                    <input type="radio" name='address' onClick={() => {
+                                        setOrderData((a) => ({
+                                            ...a,
+                                            selectedAddress: data
+                                        }))
+                                    }
                                     } />
                                     <div>
                                         <h6>{data.name}</h6>
@@ -314,7 +326,7 @@ function Checkout() {
                     <p className="check_subtotal">Subtotal</p>
                     <p className="check_total">${addAmount}</p>
                 </div>
-                <button className="check_btn" onClick={handleSubmitOrder }>Pay & Order</button>
+                <button className="check_btn" onClick={handleSubmitOrder}>Pay & Order</button>
                 <p id="continue_shop" onClick={() => navigate('/')}>or Continue Shopping <i class="bi bi-arrow-right"></i></p>
             </div>
             {/* </div> */}

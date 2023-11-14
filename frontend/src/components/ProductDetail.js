@@ -112,7 +112,8 @@ function ProductDetail() {
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia et voluptate atque, cupiditate earum facere fugit nesciunt enim harum soluta.</p>
                         </div>
                         <div className="p_detail_box3">
-                            <h2>${productInfo.price}</h2>
+                            <h2>$ {(productInfo.price)-(Math.ceil((productInfo.price)*productInfo.discountPercentage/100))}</h2>
+                            <del>${productInfo.price}</del> <span>{productInfo.discountPercentage}% off</span>
                             <div className="p_rating_box">
                                 <i class="bi bi-star-fill" style={{color:'orangered'}}></i>
                                 {/* <i class="bi bi-star-fill"></i>
@@ -155,7 +156,7 @@ function ProductDetail() {
                             {!checkLogin
                                 &&
                                 <div class="alert alert-danger" role="alert">
-                                    Please login to add  &nbsp;<a href="#" class="alert-link">Login</a>
+                                    Please login to access cart  &nbsp;<a href="/login" class="alert-link">Login</a>
                                 </div>
                             }
                         </div>

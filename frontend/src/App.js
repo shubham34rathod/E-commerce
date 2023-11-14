@@ -19,6 +19,7 @@ import AdminProductList from './components/admin/AdminProductList';
 import AdminProductFormPage from './components/admin/AdminProductFormPage';
 import AdminOrders from './components/admin/AdminOrders';
 import ResetPassword from './components/ResetPassword';
+import StripCheckout from './components/payment/StripeCheckout';
 
 function App() {
   return <>
@@ -38,7 +39,7 @@ function App() {
             <Route path='/checkout' element={<Checkout></Checkout>}></Route>
             <Route path='/login' element={<Login></Login>}></Route>
             <Route path='/sign_up' element={<SignUp></SignUp>}></Route>
-            <Route path='/order_success' element={<OrderSuccess></OrderSuccess>}></Route>
+            <Route path='/order_success/:state' element={<OrderSuccess></OrderSuccess>}></Route>
             <Route path='my_order' element={<MyOrder></MyOrder>}></Route>
             <Route path='/user_profile' element={<UserProfile></UserProfile>}></Route>
             <Route path='/forgot_password' element={<ForgotPassword></ForgotPassword>}></Route>
@@ -46,6 +47,7 @@ function App() {
             <Route path='/adminProductList' element={<AdminProductList></AdminProductList>}></Route>
             <Route path='/adminProductForm' element={<AdminProductFormPage></AdminProductFormPage>}></Route>
             <Route path='/adminOrders' element={<AdminOrders></AdminOrders>}></Route>
+            <Route path='/strip_payment' element={<StripCheckout></StripCheckout>}></Route>
             <Route path='/*' element={<Page404></Page404>}></Route>          
           </Routes> 
       </BrowserRouter>

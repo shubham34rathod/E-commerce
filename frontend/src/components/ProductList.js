@@ -13,10 +13,20 @@ function ProductList() {
     let navigate = useNavigate()
     let loginStatus = useSelector((state) => state.products.login)
 
-    // if(!loginStatus)
-    // {
-    //     navigate('/login')
-    // }
+    if(!loginStatus)
+    {
+        // navigate('/login')
+    }
+
+    //! style for product list (display grid)...........
+
+    let styleObj = {
+        display: "grid",
+        gridTemplateColumns: "repeat(4,1fr)",
+        padding: "10px",
+        gridGap: "40px",
+    }
+
 
     let dummyData = useSelector((state) => state.products.products)
     let dummyBrand = useSelector((state) => state.products.brands)
@@ -27,6 +37,7 @@ function ProductList() {
     let [filter, setFilter] = useState({})
     let [pagination, setPegination] = useState(1)
     let [totalPages, setTotalPages] = useState()
+    let [gridView, setGridView] = useState(true)
 
     useEffect(() => {
         async function getProductData() {
@@ -77,31 +88,30 @@ function ProductList() {
 
         }
         getAllProducts()
-    }, [query,pagination,dispatch])
+    }, [query, pagination, dispatch])
 
 
     //! fetching brand and category................................
 
-    useEffect(()=>{
-        async function fetchingData()
-        {
+    useEffect(() => {
+        async function fetchingData() {
             await axios.get(`http://localhost:8000/brand`)
-            .then((res)=>{
-                // console.log(res.data);
-                dispatch(setBrands(res.data))
-            })
-            .catch((error)=>console.log(error))
-            
-            
+                .then((res) => {
+                    // console.log(res.data);
+                    dispatch(setBrands(res.data))
+                })
+                .catch((error) => console.log(error))
+
+
             await axios.get(`http://localhost:8000/category`)
-            .then((res)=>{
-                // console.log(res.data);
-                dispatch(setCategory(res.data))
-            })
-            .catch((error)=>console.log(error))
+                .then((res) => {
+                    // console.log(res.data);
+                    dispatch(setCategory(res.data))
+                })
+                .catch((error) => console.log(error))
         }
         fetchingData()
-    },[])
+    }, [])
 
 
     return <>
@@ -117,7 +127,7 @@ function ProductList() {
                         <option value="price">Price: Low to High</option>
                         <option value="price">Price: High to Low</option>
                     </select>
-                    <i className="bi bi-grid-fill" style={{ fontSize: '20px' }}></i>
+                    <i className="bi bi-grid-fill" style={{ fontSize: '20px' }} onClick={() => setGridView((gridView) ? false : true)}></i>
                 </div>
             </div>
             <hr />
@@ -161,72 +171,103 @@ function ProductList() {
                         </div>
                     </div>
                 </div>
-                <div className="product_box4">
-                    {(!dummyData) ?
-                        <div className="product_loader" style={{ marginLeft: '300px' }}>
-                            <div className="spinner-border text-primary" role="status" style={{ width: '30px', height: '30px', }}>
-                                <span className="visually-hidden">Loading...</span>
-                            </div>
-                            <span>Loading.....</span>
-                        </div>
-                        :
-                        dummyData.map((data) => <>
-                            <div className="product_sub2" onClick={() => navigate('/product_detail', { state: data._id })}>
-                                <div className="item_img">
-                                    <img src={data.thumbnail} alt="" />
+                {(gridView) ?
+                    <div className="product_box4" style={styleObj}>
+                        {(!dummyData) ?
+                            <div className="product_loader" style={{ marginLeft: '300px' }}>
+                                <div className="spinner-border text-primary" role="status" style={{ width: '30px', height: '30px', }}>
+                                    <span className="visually-hidden">Loading...</span>
                                 </div>
-                                <div className="product_sub3">
-                                    <p id="product_item_name">{data.title}</p>
-                                    <div style={{ lineHeight: '5px', marginTop: '5px' }}>
-                                        <p id="product_price">${data.price}</p>
-                                        <p style={{ color: 'gray' }}><del>${data.price}</del></p>
+                                <span>Loading.....</span>
+                            </div>
+                            :
+                            dummyData.map((data) => <>
+                                <div className="product_sub2" onClick={() => navigate('/product_detail', { state: data._id })}>
+                                    <div className="item_img">
+                                        <img src={data.thumbnail} alt="" />
+                                    </div>
+                                    <div className="product_sub3">
+                                        <p id="product_item_name">{data.title}</p>
+                                        <div style={{ lineHeight: '5px', marginTop: '5px' }}>
+                                            <p id="product_price">${(data.price)-(Math.ceil((data.price)*data.discountPercentage/100))}</p>
+                                            <p style={{ color: 'gray' }}><del>${data.price}</del></p>
+                                        </div>
+                                    </div>
+                                    <i className="bi bi-star-fill" ></i>
+                                    <p className="iem_clr" style={{ display: 'inline' }}>{data.rating}</p>
+                                </div>
+                            </>)
+                        }
+                        {/* <div className="producnt_sub4">
+                        <div className="product_item_img">
+                            <img src={tmpImg} alt="" />
+                        </div>
+                        <div className="product_item_info">
+                            <h6 style={{display:'inline'}}>Iphone x</h6> <span><i class="bi bi-star-fill"></i>4.5</span>
+                            <p>Apple</p>
+                            <p className="item_desc">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus, excepturi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident a numquam mollitia debitis voluptatem quisquam cumque eligendi libero, ea ratione!
+                            </p>
+                            <h2>$589</h2>
+                            <del>$1100</del>
+                        </div>
+                    </div> */}
+                    </div>
+                    :
+                    <div className="producnt_sub4">
+                        {(!dummyData) ?
+                            <div className="product_loader" style={{ marginLeft: '300px' }}>
+                                <div className="spinner-border text-primary" role="status" style={{ width: '30px', height: '30px', }}>
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                                <span>Loading.....</span>
+                            </div>
+                            :
+                            dummyData.map((data) => <>
+                                <div className="product_sub5" onClick={()=>navigate('/product_detail', { state: data._id })}>
+                                    <div className="product_item_img">
+                                        <img src={data.thumbnail} alt="" />
+                                    </div>
+                                    <div className="product_item_info">
+                                        <h6 style={{ display: 'inline' }}>{data.title}</h6> <span><i class="bi bi-star-fill"></i>{data.rating}</span>
+                                        <p>{data.brand}</p>
+                                        <p className="item_desc">
+                                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus, excepturi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident a numquam mollitia debitis voluptatem quisquam cumque eligendi libero, ea ratione!
+                                        </p>
+                                        <h4>$ {(data.price)-(Math.ceil((data.price)*data.discountPercentage/100))}</h4>
+                                        <del>$ {data.price}</del> <span>{data.discountPercentage}% off</span>
                                     </div>
                                 </div>
-                                <i className="bi bi-star-fill" ></i>
-                                <p className="iem_clr" style={{ display: 'inline' }}>{data.rating}</p>
-                            </div>
-                        </>)
-                    }
-                </div>
+                            </>)
+                        }
+                    </div>
+                }
             </div>
-            {/* <nav aria-label="Page navigation example">               
-                 <ul className="pagination justify-content-end" onChange={(e)=>console.log(e.target.value)}>
-                    <li  className="page-item disabled">
-                        <a className="page-link">Previous</a>
-                    </li>
-                    <li  className="page-item"><a className="page-link" href="#">1</a></li>
-                    <li  className="page-item"><a className="page-link" href="#">2</a></li>
-                    <li  className="page-item"><a className="page-link" href="#">3</a></li>
-                    <li  className="page-item">
-                        <a className="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav> */}
             <div className='product_box5'>
-               <div className="product_box6">
-               <ReactPaginate
-                    breakLabel="..."
-                    nextLabel="next >"
-                    onPageChange={(e)=>{
-                        setPegination((e.selected)+1)
-                        // console.log(e.selected+1);
-                    }}
-                    pageRangeDisplayed={5}
-                    pageCount={Math.ceil(totalPages / 16)}
-                    previousLabel="< previous"
-                    renderOnZeroPageCount={null}
-                    marginPagesDisplayed={2}
-                    // onPageChange={this.handlePageClick}
-                    containerClassName="pagination justify-content-center"
-                    pageClassName="page-item"
-                    pageLinkClassName="page-link"
-                    previousClassName="page-item"
-                    previousLinkClassName="page-link"
-                    nextClassName="page-item"
-                    nextLinkClassName="page-link"
-                    activeClassName="active"
-                />
-               </div>
+                <div className="product_box6">
+                    <ReactPaginate
+                        breakLabel="..."
+                        nextLabel="next >"
+                        onPageChange={(e) => {
+                            setPegination((e.selected) + 1)
+                            // console.log(e.selected+1);
+                        }}
+                        pageRangeDisplayed={5}
+                        pageCount={Math.ceil(totalPages / 16)}
+                        previousLabel="< previous"
+                        renderOnZeroPageCount={null}
+                        marginPagesDisplayed={2}
+                        // onPageChange={this.handlePageClick}
+                        containerClassName="pagination justify-content-center"
+                        pageClassName="page-item"
+                        pageLinkClassName="page-link"
+                        previousClassName="page-item"
+                        previousLinkClassName="page-link"
+                        nextClassName="page-item"
+                        nextLinkClassName="page-link"
+                        activeClassName="active"
+                    />
+                </div>
             </div>
         </div>
     </>
