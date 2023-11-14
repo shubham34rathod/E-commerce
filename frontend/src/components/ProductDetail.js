@@ -33,7 +33,7 @@ function ProductDetail() {
 
     useEffect(() => {
         async function getProductDetail() {
-            await fetch(`http://localhost:8000/product/fetchProduct_byID/${location.state}`)
+            await fetch(`https://e-commerce-backend-e13o.onrender.com/product/fetchProduct_byID/${location.state}`)
                 .then((res) => res.json())
                 .then((data) => {
                     setProductInfo(data)
@@ -49,7 +49,7 @@ function ProductDetail() {
     async function handleCart() {
         console.log(addCart);
         if (userInfo) {
-            await fetch(`http://localhost:8000/cart/addToCart/${user._id}`, {
+            await fetch(`https://e-commerce-backend-e13o.onrender.com/cart/addToCart/${user._id}`, {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json'
