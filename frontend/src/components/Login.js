@@ -52,7 +52,7 @@ function Login() {
         // .catch((error)=>console.log(error))
         setLoginLoading(true)
 
-        await axios.post(`http://localhost:8000/user/login`, loginData, { withCredentials: true })
+        await axios.post(`https://e-commerce-backend-tdjw.onrender.com/user/login`, loginData, { withCredentials: true })
             .then((res) => {
                 console.log(res.data);
                 if (res.data === 'wrong password') {
