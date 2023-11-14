@@ -22,7 +22,7 @@ function SignUp() {
     async function handleSubmit(e) {
         e.preventDefault()
         // console.log(signUpdata);
-        await fetch(`http://localhost:8000/user/newUser`, {
+        await fetch(`https://e-commerce-backend-tdjw.onrender.com/user/newUser`, {
             method: 'post',
             headers: {
                 'content-type': 'application/json'
