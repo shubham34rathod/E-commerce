@@ -77,7 +77,7 @@ function ProductList() {
     useEffect(() => {
         // console.log('page',pagination);
         async function getAllProducts() {
-            await fetch(`http://localhost:8000/product/get_products?_page=${pagination}&${query}`)
+            await fetch(`https://e-commerce-backend-tdjw.onrender.com/product/get_products?_page=${pagination}&${query}`)
                 .then((res) => res.json())
                 .then((data) => {
                     dispatch(setAllProducts(data[0]))
@@ -95,7 +95,7 @@ function ProductList() {
 
     useEffect(() => {
         async function fetchingData() {
-            await axios.get(`http://localhost:8000/brand`)
+            await axios.get(`https://e-commerce-backend-tdjw.onrender.com/brand`)
                 .then((res) => {
                     // console.log(res.data);
                     dispatch(setBrands(res.data))
@@ -103,7 +103,7 @@ function ProductList() {
                 .catch((error) => console.log(error))
 
 
-            await axios.get(`http://localhost:8000/category`)
+            await axios.get(`https://e-commerce-backend-tdjw.onrender.com/category`)
                 .then((res) => {
                     // console.log(res.data);
                     dispatch(setCategory(res.data))
