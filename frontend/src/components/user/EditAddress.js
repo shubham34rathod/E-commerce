@@ -30,7 +30,7 @@ function EditAddress(prop) {
         console.log(userAddress);
         async function getAllProducts()
         {
-            await fetch(`http://localhost:8000/user/newAddress/${userInfo._id}`,{
+            await fetch(`https://e-commerce-backend-tdjw.onrender.com/user/newAddress/${userInfo._id}`,{
                 method:'post',
                 headers:{
                     'content-type':'application/json'
