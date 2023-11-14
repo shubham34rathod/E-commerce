@@ -12,7 +12,7 @@ function MyOrder() {
 
     useEffect(() => {
         async function fetchOrderData() {
-            await fetch(`http://localhost:8000/order/fetch/${userInfo._id}`)
+            await fetch(`https://e-commerce-backend-tdjw.onrender.com/order/fetch/${userInfo._id}`)
                 .then((data) => data.json())
                 .then((res) => {
                     // console.log(res);
