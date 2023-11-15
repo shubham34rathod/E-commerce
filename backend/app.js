@@ -35,10 +35,13 @@ const transporter = nodemailer.createTransport({
 
 
 // app.use(cors({exposedHeaders:['X-Total-Count']}))
-app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true
-}))
+// app.use(cors({
+//   origin: 'http://localhost:3000',
+//   credentials: true
+// }))
+
+app.use(cors())
+
 // app.use(express.static('./build'))
 app.use(cookieParser())
 app.use(express.json())
@@ -103,8 +106,8 @@ app.post("/create-payment-intent", async (req, res) => {
 // app.listen(4242, () => console.log("Node server listening on port 4242!"));
 
 
-// app.get('/', (req, res) => {
-//     res.json('hello world')
-// })
+app.get('/', (req, res) => {
+    res.json('hello world')
+})
 
 app.listen(8000, () => { console.log('connected to 8000 port') })

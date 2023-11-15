@@ -20,7 +20,7 @@ function ForgotPassword() {
     {
         e.preventDefault()
 
-        await axios.post(`https://e-commerce-backend-e13o.onrender.com/reset-password/check_user`,{email:email})
+        await axios.post(`http://localhost:8000/reset-password/check_user`,{email:email})
         .then(async(res)=>{
             console.log(res.data);
             if(res.data==='user exist')
@@ -28,7 +28,7 @@ function ForgotPassword() {
                 setCheckEmail(true)
                 setCheckEmail_2(false)
                 dispatch(setResetPassEmail(email))
-                await axios.post(`https://e-commerce-backend-e13o.onrender.com/mail`,{to:email})
+                await axios.post(`http://localhost:8000/mail`,{to:email})
                 .then((res)=>{
                     console.log(res.data);
                 })

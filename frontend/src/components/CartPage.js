@@ -19,7 +19,7 @@ function CartPage() {
 
     useEffect(() => {
         async function fetchCart() {
-            await fetch(`https://e-commerce-backend-e13o.onrender.com/cart/get/${userInfo._id}`)
+            await fetch(`http://localhost:8000/cart/get/${userInfo._id}`)
                 .then((data) => data.json())
                 .then((res) => {
                     // console.log('cart', res.length);
@@ -46,7 +46,7 @@ function CartPage() {
         // console.log(e.target.value);
         // console.log(tmp);
 
-        await fetch(`https://e-commerce-backend-e13o.onrender.com/cart/update/${id}`, {
+        await fetch(`http://localhost:8000/cart/update/${id}`, {
             method: 'post',
             headers: {
                 'content-type': 'application/json'
@@ -65,7 +65,7 @@ function CartPage() {
 
     async function handleDeleteItem(id) {
         console.log(id);
-        await fetch(`https://e-commerce-backend-e13o.onrender.com/cart/delete/${id}`)
+        await fetch(`http://localhost:8000/cart/delete/${id}`)
             .then((data) => data.json())
             .then((res) => console.log(res))
             .catch((error) => console.log(error))

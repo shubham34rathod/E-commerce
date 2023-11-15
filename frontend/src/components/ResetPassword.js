@@ -24,7 +24,7 @@ function ResetPassword() {
         if(newPassword==cnfPassword)
         {
             setPassAlert(false)
-            await axios.post(`https://e-commerce-backend-e13o.onrender.com/reset-password/new-password/${userEmail}`,{password:newPassword})
+            await axios.post(`http://localhost:8000/reset-password/new-password/${userEmail}`,{password:newPassword})
             .then((res)=>{
                 console.log(res.data);
             })

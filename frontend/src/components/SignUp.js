@@ -22,7 +22,7 @@ function SignUp() {
     async function handleSubmit(e) {
         e.preventDefault()
         // console.log(signUpdata);
-        await fetch(`https://e-commerce-backend-e13o.onrender.com/user/newUser`, {
+        await fetch(`http://localhost:8000/user/newUser`, {
             method: 'post',
             headers: {
                 'content-type': 'application/json'

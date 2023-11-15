@@ -39,22 +39,22 @@ function ProductList() {
     let [totalPages, setTotalPages] = useState()
     let [gridView, setGridView] = useState(true)
 
-    useEffect(() => {
-        async function getProductData() {
-            await fetch('https://dummyjson.com/products?limit=100')
-                // fetch('https://dummyjson.com/products/category/smartphones')
-                .then((res) => res.json())
-                .then((data) => {
-                    // console.log(JSON.stringify(data.products));
-                    // console.log([...new Set([...data.products.map((a) => a.category)]).keys()]);
-                    // dispatch(setAllProducts(data.products))
-                    // dispatch(setBrands([...new Set([...data.products.map((a) => a.brand)]).keys()]))
-                    // dispatch(setCategory([...new Set([...data.products.map((a) => a.category)]).keys()]))
-                })
-                .catch((error) => console.log(error))
-        }
-        getProductData()
-    }, [])
+    // useEffect(() => {
+    //     async function getProductData() {
+    //         await fetch('https://dummyjson.com/products?limit=100')
+    //             // fetch('https://dummyjson.com/products/category/smartphones')
+    //             .then((res) => res.json())
+    //             .then((data) => {
+    //                 // console.log(JSON.stringify(data.products));
+    //                 // console.log([...new Set([...data.products.map((a) => a.category)]).keys()]);
+    //                 // dispatch(setAllProducts(data.products))
+    //                 // dispatch(setBrands([...new Set([...data.products.map((a) => a.brand)]).keys()]))
+    //                 // dispatch(setCategory([...new Set([...data.products.map((a) => a.category)]).keys()]))
+    //             })
+    //             .catch((error) => console.log(error))
+    //     }
+    //     getProductData()
+    // }, [])
 
     // ! variable to set query..........
 
@@ -77,7 +77,7 @@ function ProductList() {
     useEffect(() => {
         // console.log('page',pagination);
         async function getAllProducts() {
-            await fetch(`https://e-commerce-backend-e13o.onrender.com/product/get_products?_page=${pagination}&${query}`)
+            await fetch(`http://localhost:8000/product/get_products?_page=${pagination}&${query}`)
                 .then((res) => res.json())
                 .then((data) => {
                     dispatch(setAllProducts(data[0]))
@@ -95,7 +95,7 @@ function ProductList() {
 
     useEffect(() => {
         async function fetchingData() {
-            await axios.get(`https://e-commerce-backend-e13o.onrender.com/brand`)
+            await axios.get(`http://localhost:8000/brand`)
                 .then((res) => {
                     // console.log(res.data);
                     dispatch(setBrands(res.data))
@@ -103,7 +103,7 @@ function ProductList() {
                 .catch((error) => console.log(error))
 
 
-            await axios.get(`https://e-commerce-backend-e13o.onrender.com/category`)
+            await axios.get(`http://localhost:8000/category`)
                 .then((res) => {
                     // console.log(res.data);
                     dispatch(setCategory(res.data))
