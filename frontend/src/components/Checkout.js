@@ -63,7 +63,7 @@ function Checkout() {
 
     useEffect(() => {
         async function fetchCart() {
-            await fetch(`http://localhost:8000/cart/get/${userInfo._id}`)
+            await fetch(`https://e-commerce-backend-e13o.onrender.com/cart/get/${userInfo._id}`)
                 .then((data) => data.json())
                 .then((res) => {
                     // console.log('cart', res);
@@ -100,7 +100,7 @@ function Checkout() {
 
     useEffect(() => {
         async function fetchUser() {
-            await fetch(`http://localhost:8000/user/${userInfo._id}`)
+            await fetch(`https://e-commerce-backend-e13o.onrender.com/user/${userInfo._id}`)
                 .then((data) => data.json())
                 .then((res) => {
                     //   console.log('user', res);
@@ -117,7 +117,7 @@ function Checkout() {
     async function handleData(e) {
         e.preventDefault()
         // console.log('add',userData);
-        await fetch(`http://localhost:8000/user/newAddress/${userInfo._id}`, {
+        await fetch(`https://e-commerce-backend-e13o.onrender.com/user/newAddress/${userInfo._id}`, {
             method: 'post',
             headers: {
                 'content-type': 'application/json'
@@ -137,7 +137,7 @@ function Checkout() {
     // async function handleOrder(e) {
     //     e.preventDefault()
     //     // console.log('add',userData);
-    //     await fetch(`http://localhost:8000/order/new_order/${userInfo._id}`, {
+    //     await fetch(`https://e-commerce-backend-e13o.onrender.com/order/new_order/${userInfo._id}`, {
     //         method: 'post',
     //         headers: {
     //             'content-type': 'application/json'
@@ -159,7 +159,7 @@ function Checkout() {
         // console.log(orderData)
 
         if (orderData.paymentMethod === 'cash') {
-            await fetch(`http://localhost:8000/order/new_order`, {
+            await fetch(`https://e-commerce-backend-e13o.onrender.com/order/new_order`, {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json'

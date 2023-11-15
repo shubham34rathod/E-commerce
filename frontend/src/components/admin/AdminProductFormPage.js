@@ -94,7 +94,7 @@ function AdminProductFormPage() {
 
         itemInfo.images.push(tmpArr)
         // console.log(itemInfo);
-        await fetch(`http://localhost:8000/product/new_product`, {
+        await fetch(`https://e-commerce-backend-e13o.onrender.com/product/new_product`, {
             method: 'post',
             headers: {
                 'content-type': 'application/json'
