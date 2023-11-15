@@ -35,12 +35,12 @@ const transporter = nodemailer.createTransport({
 
 
 // app.use(cors({exposedHeaders:['X-Total-Count']}))
-// app.use(cors({
-//   origin: 'http://localhost:3000',
-//   credentials: true
-// }))
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
 
-app.use(cors())
+// app.use(cors())
 
 // app.use(express.static('./build'))
 app.use(cookieParser())
