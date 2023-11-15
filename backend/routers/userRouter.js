@@ -20,7 +20,8 @@ router.post('/login',async(req,res)=>{
                 let {password,...userInfo}=user._doc
                 // console.log(userInfo);
                 // res.cookie('jwt','badsha')
-                res.cookie('jwt','badsha',{expires:new Date(Date.now())}).json(userInfo)
+                // res.cookie('jwt','badsha',{expires:new Date(Date.now())}).json(userInfo)
+                  res.json(userInfo)
             }
             else
             {
