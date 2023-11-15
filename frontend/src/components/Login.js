@@ -52,7 +52,8 @@ function Login() {
         // .catch((error)=>console.log(error))
         setLoginLoading(true)
 
-        await axios.post(`https://e-commerce-backend-e13o.onrender.com/user/login`, loginData, { withCredentials: true })
+        // await axios.post(`https://e-commerce-backend-e13o.onrender.com/user/login`, loginData, { withCredentials: true })
+        await axios.post(`https://e-commerce-backend-e13o.onrender.com/user/login`, loginData)
             .then((res) => {
                 console.log(res.data);
                 if (res.data === 'wrong password') {
