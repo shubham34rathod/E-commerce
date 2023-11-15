@@ -25,57 +25,71 @@ function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        // await fetch(`http://localhost:8000/user/login`,{
-        //     method:'post',
-        //     headers:{
-        //         'content-type':'application/json'
-        //     },
-        //     body:JSON.stringify(loginData),
-        // })
-        // .then((data)=>data.json())
-        // .then((res)=>{
-        //     console.log(res);
-        //     if(res==='wrong password')
-        //     {
+        await fetch(`http://localhost:8000/user/login`,{
+            method:'post',
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(loginData),
+        })
+        .then((data)=>data.json())
+        .then((res)=>{
+            console.log(res);
+            if(res==='wrong password')
+            {
 
-        //     }
-        //     else
-        //     {
-        //         dispatch(setUser(res))
-        //         setLoginData({
-        //             email:'',
-        //             password:''
-        //         })
-        //         navigate('/')
-        //     }
-        // })
-        // .catch((error)=>console.log(error))
+            }
+            else
+            {
+                // dispatch(setUser(res))
+                // setLoginData({
+                //     email:'',
+                //     password:''
+                // })
+                // navigate('/')
+                dispatch(setUser(res))
+                setLoginLoading(false)
+                setLoginData({
+                    email: '',
+                    password: ''
+                })
+                if(res.role==='user')
+                {
+                    navigate('/')
+                }
+                if(res.role==='admin')
+                {
+                    navigate('/adminProductList')
+                }
+            }
+        })
+        .catch((error)=>console.log(error))
         setLoginLoading(true)
 
         // await axios.post(`https://e-commerce-backend-e13o.onrender.com/user/login`, loginData, { withCredentials: true })
-        await axios.post(`https://e-commerce-backend-e13o.onrender.com/user/login`, loginData)
-            .then((res) => {
-                console.log(res.data);
-                if (res.data === 'wrong password') {
+        // await axios.post(`https://e-commerce-backend-e13o.onrender.com/user/login`, loginData)
+        //     .then((res) => {
+        //         console.log(res.data);
+        //         if (res.data === 'wrong password') {
 
-                }
-                else {
-                    dispatch(setUser(res.data))
-                    setLoginLoading(false)
-                    setLoginData({
-                        email: '',
-                        password: ''
-                    })
-                    if(res.data.role==='user')
-                    {
-                        navigate('/')
-                    }
-                    if(res.data.role==='admin')
-                    {
-                        navigate('/adminProductList')
-                    }
-                }
-            })
+        //         }
+        //         else {
+        //             dispatch(setUser(res.data))
+        //             setLoginLoading(false)
+        //             setLoginData({
+        //                 email: '',
+        //                 password: ''
+        //             })
+        //             if(res.data.role==='user')
+        //             {
+        //                 navigate('/')
+        //             }
+        //             if(res.data.role==='admin')
+        //             {
+        //                 navigate('/adminProductList')
+        //             }
+        //         }
+        //     })
     }
 
     return <>
