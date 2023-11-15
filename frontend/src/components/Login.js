@@ -25,7 +25,7 @@ function Login() {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        await fetch(`http://localhost:8000/user/login`,{
+        await fetch(`https://e-commerce-backend-e13o.onrender.com/user/login`,{
             method:'post',
             headers:{
                 'content-type':'application/json'
