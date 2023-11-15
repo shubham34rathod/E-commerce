@@ -39,22 +39,22 @@ function ProductList() {
     let [totalPages, setTotalPages] = useState()
     let [gridView, setGridView] = useState(true)
 
-    useEffect(() => {
-        async function getProductData() {
-            await fetch('https://dummyjson.com/products?limit=100')
-                // fetch('https://dummyjson.com/products/category/smartphones')
-                .then((res) => res.json())
-                .then((data) => {
-                    // console.log(JSON.stringify(data.products));
-                    // console.log([...new Set([...data.products.map((a) => a.category)]).keys()]);
-                    // dispatch(setAllProducts(data.products))
-                    // dispatch(setBrands([...new Set([...data.products.map((a) => a.brand)]).keys()]))
-                    // dispatch(setCategory([...new Set([...data.products.map((a) => a.category)]).keys()]))
-                })
-                .catch((error) => console.log(error))
-        }
-        getProductData()
-    }, [])
+    // useEffect(() => {
+    //     async function getProductData() {
+    //         await fetch('https://dummyjson.com/products?limit=100')
+    //             // fetch('https://dummyjson.com/products/category/smartphones')
+    //             .then((res) => res.json())
+    //             .then((data) => {
+    //                 // console.log(JSON.stringify(data.products));
+    //                 // console.log([...new Set([...data.products.map((a) => a.category)]).keys()]);
+    //                 // dispatch(setAllProducts(data.products))
+    //                 // dispatch(setBrands([...new Set([...data.products.map((a) => a.brand)]).keys()]))
+    //                 // dispatch(setCategory([...new Set([...data.products.map((a) => a.category)]).keys()]))
+    //             })
+    //             .catch((error) => console.log(error))
+    //     }
+    //     getProductData()
+    // }, [])
 
     // ! variable to set query..........
 
@@ -81,7 +81,7 @@ function ProductList() {
                 .then((res) => res.json())
                 .then((data) => {
                     dispatch(setAllProducts(data[0]))
-                    // console.log('back',data);
+                    console.log('back',data);
                     setTotalPages(data[1])
                 })
             // console.log(query);

@@ -178,7 +178,8 @@ function Checkout() {
                 .catch((error) => console.log(error))
         }
         if (orderData.paymentMethod === 'card') {
-            navigate(`/strip_payment`,{state:orderData})
+            // navigate(`/strip_payment`,{state:orderData})
+            alert('card is not working. select cash on delivery')
         }
 
 
