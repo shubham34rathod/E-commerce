@@ -111,7 +111,7 @@ function ProductList() {
                 .catch((error) => console.log(error))
         }
         fetchingData()
-    }, [])
+    }, [dispatch])
 
 
     return <>
